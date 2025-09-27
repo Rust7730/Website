@@ -117,3 +117,38 @@ h2 {
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
+#iss-map-container {
+    height: 400px;
+    background-color: #333;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    border: 1px solid var(--primary-color);
+}
+
+#iss-data-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1rem;
+    text-align: center;
+}
+
+.iss-data-item {
+    background-color: var(--card-background);
+    padding: 1rem;
+    border-radius: 8px;
+    min-width: 150px;
+    border: 1px solid #2a2a2a;
+}
+
+.iss-data-item h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--primary-color);
+    font-family: 'Orbitron', sans-serif;
+}
+
+.iss-data-item p {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+}

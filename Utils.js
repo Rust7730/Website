@@ -16,3 +16,17 @@ async function getApod() {
         return null; 
     }
 }
+async function getIssPosition() {
+    const url = 'https://api.wheretheiss.at/v1/satellites/25544';
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Error en la respuesta de la red: ${response.statusText}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error al obtener la posición de la ISS:', error);
+        return null;
+    }
+}
