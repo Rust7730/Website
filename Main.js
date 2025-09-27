@@ -62,9 +62,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
     issMarker = L.marker([0, 0], { icon: issIcon }).addTo(issMap);
 }
+showPage('apod');
+    loadApod();
+    initializeIssMap();
+    updateIssPosition(); 
+    setInterval(updateIssPosition, 5000); 
     showPage('apod');
     loadApod();
       showPage('apod');
     loadApod();
     initializeIssMap();
+    async function updateIssPosition() {
+    const data = await getIssPosition();
+    if (!data) return;
+
+    const { latitude, longitude, velocity, altitude } = data;
+
+    issMarker.setLatLng([latitude, longitude]);
+    issMap.setView([latitude, longitude], issMap.getZoom());
+
+    const issDataContainer = document.getElementById('iss-data-container');
+    issDataContainer.innerHTML = `
+        <div class="iss-data-item">
+            <h4>Velocidad</h4>
+            <p>${velocity.toFixed(2)} km/h</p>
+        </div>
+        <div class="iss-data-item">
+            <h4>Altitud</h4>
+            <p>${altitude.toFixed(2)} km</p>
+        </div>
+        <div class="iss-data-item">
+            <h4>Latitud</h4>
+            <p>${latitude.toFixed(4)}</p>
+        </div>
+        <div class="iss-data-item">
+            <h4>Longitud</h4>
+            <p>${longitude.toFixed(4)}</p>
+        </div>
+    `;
+}
+
 });
