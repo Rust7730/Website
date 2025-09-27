@@ -46,7 +46,25 @@ document.addEventListener('DOMContentLoaded', () => {
             apodContainer.innerHTML = `<p>No se pudo cargar la imagen del día. Inténtalo más tarde.</p>`;
         }
     }
+    let issMap;
+    let issMarker;
+    const issIcon = L.icon({
+        iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png', // URL de un ícono simple
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        });
+    function initializeIssMap() {
+     issMap = L.map('iss-map-container').setView([0, 0], 2);
 
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(issMap);
+
+    issMarker = L.marker([0, 0], { icon: issIcon }).addTo(issMap);
+}
     showPage('apod');
     loadApod();
+      showPage('apod');
+    loadApod();
+    initializeIssMap();
 });
