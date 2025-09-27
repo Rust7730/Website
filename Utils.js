@@ -1,4 +1,3 @@
-// utils.js
 
 const API_KEY = 'i3fB518bc4HWgErQH5r7oz6W3vAwepfb8sTevDZ6'; 
 
