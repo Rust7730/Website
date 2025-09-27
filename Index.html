@@ -14,8 +14,8 @@
         <h1>Galaxy Explorer </h1>
         <nav>
             <a href="#apod" class="nav-link active">Foto del Día</a>
-            <a href="#mars" class="nav-link">Galería de Marte</a>
-            <a href="#search" class="nav-link">Buscador</a>
+            <a href="#iss" class="nav-link">Rastreador ISS</a>
+            <a href="#asteroids" class="nav-link">Radar de Asteroides</a>
         </nav>
     </header>
     <main>
@@ -25,21 +25,16 @@
                 <div class="loader"></div>
             </div>
         </section>
-        <section id="mars" class="page">
-            <h2>Explorando Marte</h2>
-            <p>Fotos tomadas por el Rover Curiosity en Marte.</p>
-            <div id="mars-gallery" class="gallery">
-                <div class="loader"></div>
-            </div>
-
+        <section id="iss" class="page">
+            <h2>Posición Actual de la ISS</h2>
+            <div id="iss-map-container">
+                </div>
+            <div id="iss-data-container">
+                </div>
         </section>
-        <section id="search" class="page">
-            <h2>Buscador de la Biblioteca de la NASA</h2>
-            <div class="search-container">
-                <input type="text" id="search-input" placeholder="Ej: Orion Nebula, Apollo 11...">
-                <button id="search-button">Buscar</button>
-            </div>
-            <div id="search-results" class="gallery">
+   <section id="asteroids" class="page">
+            <h2>Asteroides Cercanos a la Tierra</h2>
+            <div id="asteroids-container">
                 </div>
         </section>
         
