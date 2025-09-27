@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pages = document.querySelectorAll('.page');
     const navLinks = document.querySelectorAll('.nav-link');
     const apodContainer = document.getElementById('apod-container');
+    const asteroidsContainer = document.getElementById('asteroids-container');
 
     function showPage(pageId) {
         pages.forEach(page => {
@@ -62,16 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     issMarker = L.marker([0, 0], { icon: issIcon }).addTo(issMap);
 }
-showPage('apod');
-    loadApod();
-    initializeIssMap();
-    updateIssPosition(); 
-    setInterval(updateIssPosition, 5000); 
-    showPage('apod');
-    loadApod();
-      showPage('apod');
-    loadApod();
-    initializeIssMap();
+
     async function updateIssPosition() {
     const data = await getIssPosition();
     if (!data) return;
@@ -101,5 +93,39 @@ showPage('apod');
         </div>
     `;
 }
+async function loadAsteroids() {
+    asteroidsContainer.innerHTML = '<div class="loader"></div>';
+    const asteroids = await getNearbyAsteroids();
+    asteroidsContainer.innerHTML = '';
+
+    if (asteroids && asteroids.length > 0) {
+        asteroids.forEach(asteroid => {
+            const cardClass = asteroid.is_potentially_hazardous_asteroid ? 'asteroid-card hazardous' : 'asteroid-card';
+            const diameter = asteroid.estimated_diameter.kilometers.estimated_diameter_max.toFixed(3);
+            const missDistance = parseFloat(asteroid.close_approach_data[0].miss_distance.kilometers).toLocaleString('es-ES', { maximumFractionDigits: 0 });
+            const velocity = parseFloat(asteroid.close_approach_data[0].relative_velocity.kilometers_per_hour).toLocaleString('es-ES', { maximumFractionDigits: 0 });
+
+            const card = `
+                <div class="${cardClass}">
+                    <h4>${asteroid.name}</h4>
+                    ${asteroid.is_potentially_hazardous_asteroid ? '<p class="hazardous-warning">⚠️ Potencialmente Peligroso</p>' : ''}
+                    <p><strong>Fecha de máxima aproximación:</strong> ${asteroid.close_approach_data[0].close_approach_date_full}</p>
+                    <p><strong>Diámetro estimado:</strong> ${diameter} km</p>
+                    <p><strong>Pasará a una distancia de:</strong> ${missDistance} km de la Tierra</p>
+                    <p><strong>Velocidad:</strong> ${velocity} km/h</p>
+                </div>
+            `;
+            asteroidsContainer.innerHTML += card;
+        });
+    } else {
+        asteroidsContainer.innerHTML = '<p>No se encontraron asteroides cercanos en los próximos 7 días.</p>';
+    }
+}
+showPage('apod');
+    loadApod();
+    initializeIssMap();
+    updateIssPosition(); 
+    setInterval(updateIssPosition, 5000); 
+      loadAsteroids();
 
 });
